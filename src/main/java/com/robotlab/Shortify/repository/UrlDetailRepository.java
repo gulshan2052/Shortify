@@ -1,13 +1,14 @@
 package com.robotlab.Shortify.repository;
 
-import com.robotlab.Shortify.entity.User;
+import com.robotlab.Shortify.entity.UrlDetail;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
-import java.util.UUID;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, UUID> {
-    Optional<User> findByEmail(String email);
+public interface UrlDetailRepository extends JpaRepository<UrlDetail, String> {
+
+    Optional<UrlDetail> findUrlDetailById(String id);
+
 }

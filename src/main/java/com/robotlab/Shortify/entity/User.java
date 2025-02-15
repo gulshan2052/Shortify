@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
 @Data
 @Builder
@@ -25,7 +26,7 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue
     @Column(name = "user_id")
-    private Long userId;
+    private UUID userId;
     private String firstname;
     private String lastname;
     private String email;
