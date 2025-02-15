@@ -20,7 +20,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "shortify_user")
+@Table(name = "shortify_user", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 public class User implements UserDetails {
 
     @Id
@@ -29,6 +29,8 @@ public class User implements UserDetails {
     private UUID userId;
     private String firstname;
     private String lastname;
+
+    @Column(nullable = false, unique = true)
     private String email;
     private String password;
     @Enumerated(EnumType.STRING)

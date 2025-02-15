@@ -1,48 +1,14 @@
 package com.robotlab.Shortify.service;
 
-import com.robotlab.Shortify.constants.Role;
 import com.robotlab.Shortify.dto.AuthenticationRequest;
 import com.robotlab.Shortify.dto.AuthenticationResponse;
 import com.robotlab.Shortify.dto.RegistrationRequest;
-import com.robotlab.Shortify.entity.User;
-import com.robotlab.Shortify.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
+import org.springframework.http.ResponseEntity;
 
-@Service
-@RequiredArgsConstructor
-public class AuthenticationService {
+public interface AuthenticationService {
 
-    private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
-    private final JwtService jwtService;
-    private final AuthenticationManager authenticationManager;
+    ResponseEntity<AuthenticationResponse> register(RegistrationRequest request);
 
-    public AuthenticationResponse register(RegistrationRequest request) {
-        User user = User.builder()
-                .firstname(request.getFirstname())
-                .lastname(request.getLastname())
-                .email(request.getEmail())
-                .password(passwordEncoder.encode(request.getPassword()))
-                .role(Role.valueOf(request.getRole()))
-                .build();
-        userRepository.save(user);
-        String jwtToken = jwtService.generateToken(user);
-        return AuthenticationResponse.builder().token(jwtToken).build();
-    }
+    ResponseEntity<AuthenticationResponse> authenticate(AuthenticationRequest request);
 
-    public AuthenticationResponse authenticate(AuthenticationRequest request) {
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        request.getEmail(),
-                        request.getPassword()
-                )
-        );
-        User user = userRepository.findByEmail(request.getEmail()).orElseThrow();
-        String jwtToken = jwtService.generateToken(user);
-        return AuthenticationResponse.builder().token(jwtToken).build();
-    }
 }

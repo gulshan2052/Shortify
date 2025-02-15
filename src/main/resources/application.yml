@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: Shortify
+  datasource:
+    url: jdbc:mariadb://localhost:3306/shortify
+    username: shortify
+    password: shortify
+    driver-class-name: org.mariadb.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
