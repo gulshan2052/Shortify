@@ -1,14 +1,10 @@
-package com.robotlab.Shortify.repository;
+package com.robotlab.Shortify.Repository;
 
-import com.robotlab.Shortify.entity.UrlDetail;
+import com.robotlab.Shortify.Entity.UrlDetail;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
-
 @Repository
 public interface UrlDetailRepository extends JpaRepository<UrlDetail, String> {
-
-    Optional<UrlDetail> findUrlDetailById(String id);
 
 }

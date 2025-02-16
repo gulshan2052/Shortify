@@ -1,7 +1,7 @@
-package com.robotlab.Shortify.entity;
+package com.robotlab.Shortify.Entity;
 
 
-import com.robotlab.Shortify.constants.Role;
+import com.robotlab.Shortify.Constants.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

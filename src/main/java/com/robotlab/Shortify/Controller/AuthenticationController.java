@@ -1,9 +1,9 @@
-package com.robotlab.Shortify.controller;
+package com.robotlab.Shortify.Controller;
 
-import com.robotlab.Shortify.dto.AuthenticationRequest;
-import com.robotlab.Shortify.dto.AuthenticationResponse;
-import com.robotlab.Shortify.dto.RegistrationRequest;
-import com.robotlab.Shortify.service.AuthenticationService;
+import com.robotlab.Shortify.Dto.AuthenticationRequest;
+import com.robotlab.Shortify.Dto.AuthenticationResponse;
+import com.robotlab.Shortify.Dto.RegistrationRequest;
+import com.robotlab.Shortify.Service.AuthenticationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

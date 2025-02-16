@@ -1,4 +1,4 @@
-package com.robotlab.Shortify.constants;
+package com.robotlab.Shortify.Constants;
 
 public enum Role {
     USER,

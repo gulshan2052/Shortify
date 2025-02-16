@@ -1,4 +1,4 @@
-package com.robotlab.Shortify.service;
+package com.robotlab.Shortify.Service;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;

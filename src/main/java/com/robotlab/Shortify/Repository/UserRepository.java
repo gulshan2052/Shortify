@@ -1,6 +1,6 @@
-package com.robotlab.Shortify.repository;
+package com.robotlab.Shortify.Repository;
 
-import com.robotlab.Shortify.entity.User;
+import com.robotlab.Shortify.Entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

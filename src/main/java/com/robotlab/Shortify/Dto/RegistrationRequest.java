@@ -1,4 +1,4 @@
-package com.robotlab.Shortify.dto;
+package com.robotlab.Shortify.Dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

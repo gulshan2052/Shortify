@@ -1,11 +1,11 @@
-package com.robotlab.Shortify.service;
+package com.robotlab.Shortify.Service;
 
-import com.robotlab.Shortify.constants.Role;
-import com.robotlab.Shortify.dto.AuthenticationRequest;
-import com.robotlab.Shortify.dto.AuthenticationResponse;
-import com.robotlab.Shortify.dto.RegistrationRequest;
-import com.robotlab.Shortify.entity.User;
-import com.robotlab.Shortify.repository.UserRepository;
+import com.robotlab.Shortify.Constants.Role;
+import com.robotlab.Shortify.Dto.AuthenticationRequest;
+import com.robotlab.Shortify.Dto.AuthenticationResponse;
+import com.robotlab.Shortify.Dto.RegistrationRequest;
+import com.robotlab.Shortify.Entity.User;
+import com.robotlab.Shortify.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,14 +24,15 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     public ResponseEntity<AuthenticationResponse> register(RegistrationRequest request) {
-        User user = User.builder()
-                .firstname(request.getFirstname())
-                .lastname(request.getLastname())
-                .email(request.getEmail())
-                .password(passwordEncoder.encode(request.getPassword()))
-                .role(Role.valueOf(request.getRole()))
-                .build();
         try {
+            User user = User.builder()
+                    .firstname(request.getFirstname())
+                    .lastname(request.getLastname())
+                    .email(request.getEmail())
+                    .password(passwordEncoder.encode(request.getPassword()))
+
+                    .role(Role.valueOf(request.getRole()))
+                    .build();
             userRepository.save(user);
             String jwtToken = jwtService.generateToken(user);
             return ResponseEntity.status(HttpStatus.CREATED)

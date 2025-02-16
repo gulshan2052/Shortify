@@ -1,7 +1,7 @@
-package com.robotlab.Shortify.config;
+package com.robotlab.Shortify.Config;
 
 
-import com.robotlab.Shortify.repository.UserRepository;
+import com.robotlab.Shortify.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

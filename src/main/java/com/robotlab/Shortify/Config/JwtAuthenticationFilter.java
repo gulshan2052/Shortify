@@ -1,6 +1,6 @@
-package com.robotlab.Shortify.config;
+package com.robotlab.Shortify.Config;
 
-import com.robotlab.Shortify.service.JwtService;
+import com.robotlab.Shortify.Service.JwtService;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

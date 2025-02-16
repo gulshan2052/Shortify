@@ -1,8 +1,8 @@
-package com.robotlab.Shortify.service;
+package com.robotlab.Shortify.Service;
 
-import com.robotlab.Shortify.dto.AuthenticationRequest;
-import com.robotlab.Shortify.dto.AuthenticationResponse;
-import com.robotlab.Shortify.dto.RegistrationRequest;
+import com.robotlab.Shortify.Dto.AuthenticationRequest;
+import com.robotlab.Shortify.Dto.AuthenticationResponse;
+import com.robotlab.Shortify.Dto.RegistrationRequest;
 import org.springframework.http.ResponseEntity;
 
 public interface AuthenticationService {

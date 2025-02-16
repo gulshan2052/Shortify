@@ -1,4 +1,4 @@
-package com.robotlab.Shortify.config;
+package com.robotlab.Shortify.Config;
 
 
 import lombok.RequiredArgsConstructor;
@@ -11,14 +11,13 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import static com.robotlab.Shortify.constants.Role.USER;
-import static com.robotlab.Shortify.constants.Role.ADMIN;
+import static com.robotlab.Shortify.Constants.Role.USER;
+import static com.robotlab.Shortify.Constants.Role.ADMIN;
 import static org.springframework.http.HttpMethod.*;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @Configuration
 @EnableWebSecurity
-//@EnableMethodSecurity
 @RequiredArgsConstructor
 public class SecurityConfiguration {
 
@@ -32,9 +31,9 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(req ->
                         req.requestMatchers("/api/v1/auth/**")
                                 .permitAll()
-                                .requestMatchers(GET, "/api/v1/product/gtin/**").hasAnyAuthority(USER.name(), ADMIN.name())
-                                .requestMatchers(POST, "/api/v1/product/**").hasAuthority(ADMIN.name())
-                                .requestMatchers(GET, "/api/v1/product/**").hasAnyAuthority(USER.name(), ADMIN.name())
+                                .requestMatchers(GET, "/api/v1/shorten/**").hasAuthority(USER.name())
+                                .requestMatchers(POST, "/api/v1/shorten/**").hasAnyAuthority(USER.name(), ADMIN.name())
+                                .requestMatchers(GET, "/{id}").permitAll()
                                 .anyRequest()
                                 .authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
