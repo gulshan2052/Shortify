@@ -31,8 +31,9 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(req ->
                         req.requestMatchers("/api/v1/auth/**")
                                 .permitAll()
-                                .requestMatchers(GET, "/api/v1/shorten/**").hasAuthority(USER.name())
-                                .requestMatchers(POST, "/api/v1/shorten/**").hasAnyAuthority(USER.name(), ADMIN.name())
+                                .requestMatchers(GET, "/api/v1/shorten/**").hasAnyAuthority(USER.name())
+                                .requestMatchers(POST, "/api/v1/shorten/**").hasAnyAuthority(USER.name())
+                                .requestMatchers(POST, "/api/v1/cleanup/**").hasAnyAuthority(USER.name(), ADMIN.name())
                                 .requestMatchers(GET, "/{id}").permitAll()
                                 .anyRequest()
                                 .authenticated())

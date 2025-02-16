@@ -1,4 +1,4 @@
-package com.robotlab.Shortify.Service;
+package com.robotlab.Shortify.ServiceImpl;
 
 import com.robotlab.Shortify.Constants.Role;
 import com.robotlab.Shortify.Dto.AuthenticationRequest;
@@ -6,6 +6,8 @@ import com.robotlab.Shortify.Dto.AuthenticationResponse;
 import com.robotlab.Shortify.Dto.RegistrationRequest;
 import com.robotlab.Shortify.Entity.User;
 import com.robotlab.Shortify.Repository.UserRepository;
+import com.robotlab.Shortify.Service.AuthenticationService;
+import com.robotlab.Shortify.Service.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -59,7 +61,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             );
             User user = userRepository.findByEmail(request.getEmail()).orElseThrow();
             String jwtToken = jwtService.generateToken(user);
-            return ResponseEntity.status(HttpStatus.ACCEPTED)
+            return ResponseEntity.status(HttpStatus.OK)
                     .body(AuthenticationResponse.builder()
                             .token(jwtToken)
                             .message("User logged in successfully")

@@ -64,7 +64,7 @@ public class JwtService {
     }
 
     private Key getSignInKey() {
-        String secretKey = "3fdf58a51010e16e621430a01baf387b481cc87ab2392d8cf92c039300f794f1";
+        String secretKey = "3fdf58a51010e16e621430a01baf387b481cc87ab2392d8cf92c039300f794f1"; // TODO - load from properties file
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         return Keys.hmacShaKeyFor(keyBytes);
     }

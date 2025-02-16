@@ -1,10 +1,11 @@
-package com.robotlab.Shortify.Service;
+package com.robotlab.Shortify.ServiceImpl;
 
 import com.robotlab.Shortify.Dto.UrlDto;
 import com.robotlab.Shortify.Dto.UrlResponse;
 import com.robotlab.Shortify.Entity.UrlDetail;
 import com.robotlab.Shortify.Entity.User;
 import com.robotlab.Shortify.Repository.UrlDetailRepository;
+import com.robotlab.Shortify.Service.UrlShortenerService;
 import com.robotlab.Shortify.Utils.UserContextUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -54,8 +55,7 @@ public class UrlShortenerServiceImpl implements UrlShortenerService {
             UrlDetail urlDetail = UrlDetail.builder()
                     .id(alias)
                     .longUrl(urlDto.getLongUrl())
-                    .ttlMinutes(urlDto.getTtlMinutes())
-                    .createdDate(now)
+                    .expirationDate(now.plusMinutes(urlDto.getTtlMinutes()))
                     .user(user)
                     .build();
             urlDetailRepository.save(urlDetail);
@@ -63,11 +63,11 @@ public class UrlShortenerServiceImpl implements UrlShortenerService {
             return UrlResponse.builder()
                     .status(1)
                     .longUrl(urlDto.getLongUrl())
-                    .shortUrl("http://localhost:8080/" + alias) // Todo - hostname
+                    .shortUrl("http://localhost:8080/" + alias) // TODO - hostname
                     .message("Link has been shortened")
                     .build();
         }
-
+        // TODO - variable length string
         int length = 6;
         int trials = 3;
         for(int i = 0; i < trials; i++){
@@ -77,8 +77,7 @@ public class UrlShortenerServiceImpl implements UrlShortenerService {
                 UrlDetail urlDetail = UrlDetail.builder()
                         .id(alias)
                         .longUrl(urlDto.getLongUrl())
-                        .ttlMinutes(urlDto.getTtlMinutes())
-                        .createdDate(now)
+                        .expirationDate(now.plusMinutes(urlDto.getTtlMinutes()))
                         .user(user)
                         .build();
                 urlDetailRepository.save(urlDetail);
@@ -86,7 +85,7 @@ public class UrlShortenerServiceImpl implements UrlShortenerService {
                 return UrlResponse.builder()
                         .status(1)
                         .longUrl(urlDto.getLongUrl())
-                        .shortUrl("http://localhost:8080/" + alias) // Todo - hostname
+                        .shortUrl("http://localhost:8080/" + alias) // TODO - hostname
                         .message("Link has been shortened")
                         .build();
             }

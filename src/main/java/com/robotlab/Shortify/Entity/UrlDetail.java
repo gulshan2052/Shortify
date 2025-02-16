@@ -23,11 +23,8 @@ public class UrlDetail {
     @Column(name = "long_url")
     private String longUrl;
 
-    @Column(name = "created_date")
-    private OffsetDateTime createdDate;
-
-    @Column(name = "ttl_minutes")
-    private Integer ttlMinutes;
+    @Column(name = "expiration_date")
+    private OffsetDateTime expirationDate;
 
     @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "user_id")
