@@ -5,6 +5,7 @@ import com.robotlab.Shortify.Dto.UrlResponse;
 import com.robotlab.Shortify.Entity.UrlDetail;
 import com.robotlab.Shortify.Entity.User;
 import com.robotlab.Shortify.Repository.UrlDetailRepository;
+import com.robotlab.Shortify.Service.LengthConfigService;
 import com.robotlab.Shortify.Service.UrlShortenerService;
 import com.robotlab.Shortify.Utils.UserContextUtil;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,7 @@ import static com.robotlab.Shortify.Utils.UrlUtils.*;
 public class UrlShortenerServiceImpl implements UrlShortenerService {
 
     private final UrlDetailRepository urlDetailRepository;
+    private final LengthConfigService lengthConfigService;
 
     @Override
     public UrlResponse shorten(UrlDto urlDto) throws RuntimeException {
@@ -67,11 +69,20 @@ public class UrlShortenerServiceImpl implements UrlShortenerService {
                     .message("Link has been shortened")
                     .build();
         }
-        // TODO - variable length string
-        int length = 6;
-        int trials = 3;
+        // TODO - test this part
+        return createShortUrl(urlDto, now, user);
+
+    }
+
+    public UrlResponse createShortUrl(UrlDto urlDto, OffsetDateTime now, User user) {
+        int trials = 5;
+        int doIncrement = 3;
+        String alias;
         for(int i = 0; i < trials; i++){
-            alias = generateRandomAlias(length);
+            if(i == doIncrement){
+                lengthConfigService.incrementAliasLength();
+            }
+            alias = generateRandomAlias(lengthConfigService.getLength());
             Optional<UrlDetail> urlDetailOptional = urlDetailRepository.findById(alias);
             if(urlDetailOptional.isEmpty()) {
                 UrlDetail urlDetail = UrlDetail.builder()
@@ -93,4 +104,5 @@ public class UrlShortenerServiceImpl implements UrlShortenerService {
 
         throw new RuntimeException("Something went wrong");
     }
+
 }
