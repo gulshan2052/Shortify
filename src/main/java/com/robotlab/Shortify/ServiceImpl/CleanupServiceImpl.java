@@ -21,6 +21,7 @@ public class CleanupServiceImpl implements CleanupService {
         OffsetDateTime now = OffsetDateTime.now();
         log.info("Cleanup started at {}", now);
         int deletedEntries = urlDetailRepository.deleteExpiredEntries(now);
+        log.info("Cleanup ended at {}", OffsetDateTime.now());
         log.info("Cleanup removed {} expired records", deletedEntries);
     }
 

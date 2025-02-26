@@ -20,7 +20,7 @@ public class HomeController {
         String longUrl = homeService.getLongUrl(id);
 
         if (longUrl != null) {
-            return ResponseEntity.status(HttpStatus.PERMANENT_REDIRECT)
+            return ResponseEntity.status(HttpStatus.TEMPORARY_REDIRECT)
                     .header("Location", longUrl)
                     .build();
         } else {
