@@ -2,7 +2,7 @@ package com.robotlab.Shortify.ServiceImpl;
 
 import com.robotlab.Shortify.Entity.UrlDetail;
 import com.robotlab.Shortify.Repository.UrlDetailRepository;
-import com.robotlab.Shortify.Service.HomeService;
+import com.robotlab.Shortify.Service.RedirectService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
@@ -14,7 +14,7 @@ import java.util.Optional;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class HomeServiceImpl implements HomeService {
+public class RedirectServiceImpl implements RedirectService {
 
     private final UrlDetailRepository urlDetailRepository;
 

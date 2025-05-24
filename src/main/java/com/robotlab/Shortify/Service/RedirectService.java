@@ -1,6 +1,6 @@
 package com.robotlab.Shortify.Service;
 
-public interface HomeService {
+public interface RedirectService {
 
     String getLongUrl(String id);
 
