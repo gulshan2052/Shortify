@@ -20,7 +20,7 @@ public class UrlDetail {
     @Column(name = "id")
     private String id;
 
-    @Column(name = "long_url")
+    @Column(name = "long_url", length = 4096)
     private String longUrl;
 
     @Column(name = "expiration_date")
