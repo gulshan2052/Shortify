@@ -10,6 +10,7 @@ public class UrlResponse {
     private Integer status;
     private String message;
     private String longUrl;
+    private String alias;
     private String shortUrl;
 
 }
@@ -21,6 +22,7 @@ public class UrlResponse {
     'status': 1,
     'longUrl': 'https://www.google.com',
     'shortUrl': 'https://cutt.ly/08Z0kXL',
+    'alias': '08Z0kXL',
     'message': 'Link has been shortened'
 }
 

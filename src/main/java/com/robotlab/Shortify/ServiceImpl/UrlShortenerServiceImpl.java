@@ -68,10 +68,10 @@ public class UrlShortenerServiceImpl implements UrlShortenerService {
                     .status(1)
                     .longUrl(urlDto.getLongUrl())
                     .shortUrl(baseUrl + "/" + alias)
+                    .alias(alias)
                     .message("Link has been shortened")
                     .build();
         }
-        // TODO - test this part
         return createShortUrl(urlDto, now, user, baseUrl);
 
     }
@@ -99,6 +99,7 @@ public class UrlShortenerServiceImpl implements UrlShortenerService {
                         .status(1)
                         .longUrl(urlDto.getLongUrl())
                         .shortUrl(baseUrl + "/" + alias)
+                        .alias(alias)
                         .message("Link has been shortened")
                         .build();
             }
