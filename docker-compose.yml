@@ -11,7 +11,7 @@ services:
       - mariadb
       - redis
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mariadb://localhost:3306/shortify
+      SPRING_DATASOURCE_URL: jdbc:mariadb://mariadb:3306/shortify
       SPRING_DATASOURCE_USERNAME: shortify
       SPRING_DATASOURCE_PASSWORD: shortify
       SPRING_REDIS_HOST: redis
@@ -25,16 +25,12 @@ services:
       MARIADB_USER: shortify
       MARIADB_PASSWORD: shortify
       MARIADB_ROOT_PASSWORD: rootpass
-    ports:
-      - "3306:3306"
     volumes:
       - mariadb-data:/var/lib/mysql
 
   redis:
     image: redis:7
     restart: always
-    ports:
-      - "6379:6379"
     volumes:
       - redis-data:/data
 
