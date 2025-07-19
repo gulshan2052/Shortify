@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.robotlab</groupId>
-	<artifactId>Shortify</artifactId>
+	<artifactId>shortify</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Shortify</name>
 	<description>URL Shortener</description>
