@@ -2,7 +2,7 @@ spring:
   application:
     name: Shortify
   datasource:
-    url: jdbc:mariadb://mariadb:3306/shortify
+    url: jdbc:mariadb://shortify-db:3306/shortify
     username: shortify
     password: shortify
     driver-class-name: org.mariadb.jdbc.Driver
@@ -11,6 +11,8 @@ spring:
       ddl-auto: update
   cache:
     type: redis
+
+  data:
     redis:
-      host: redis
+      host: shortify-redis
       port: 6379

@@ -2,38 +2,42 @@ version: '3.8'
 
 services:
   shortify-service:
-    build:
-      context: .
+    build: .
     ports:
       - "8080:8080"
-    restart: always
-    depends_on:
-      - mariadb
-      - redis
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mariadb://mariadb:3306/shortify
+      SPRING_DATASOURCE_URL: jdbc:mariadb://shortify-db:3306/shortify
       SPRING_DATASOURCE_USERNAME: shortify
       SPRING_DATASOURCE_PASSWORD: shortify
-      SPRING_REDIS_HOST: redis
+      SPRING_REDIS_HOST: shortify-redis
       SPRING_REDIS_PORT: 6379
+    depends_on:
+      - shortify-db
+      - shortify-redis
+    restart: unless-stopped
 
-  mariadb:
-    image: mariadb:11
-    restart: always
+  shortify-db:
+    image: mariadb:10.11
     environment:
-      MARIADB_DATABASE: shortify
-      MARIADB_USER: shortify
-      MARIADB_PASSWORD: shortify
-      MARIADB_ROOT_PASSWORD: rootpass
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: shortify
+      MYSQL_USER: shortify
+      MYSQL_PASSWORD: shortify
     volumes:
-      - mariadb-data:/var/lib/mysql
+      - db_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    restart: unless-stopped
 
-  redis:
+  shortify-redis:
     image: redis:7
-    restart: always
+    ports:
+      - "6379:6379"
     volumes:
-      - redis-data:/data
+      - redis_data:/data
+    restart: unless-stopped
+
 
 volumes:
-  mariadb-data:
-  redis-data:
+  db_data:
+  redis_data:
