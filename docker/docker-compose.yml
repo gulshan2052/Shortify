@@ -2,7 +2,9 @@ version: '3.8'
 
 services:
   shortify-service:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.shortify
     ports:
       - "8080:8080"
     environment:
@@ -35,6 +37,16 @@ services:
       - "6379:6379"
     volumes:
       - redis_data:/data
+    restart: unless-stopped
+
+  shortify-ui:
+    build:
+      context: .
+      dockerfile: Dockerfile.shortify-ui
+    ports:
+      - "80:80"
+    depends_on:
+      - shortify-service
     restart: unless-stopped
 
 volumes:

@@ -10,7 +10,5 @@ COPY target/Shortify.jar app.jar
 # Expose the port your application runs on
 EXPOSE 8080
 
-ENV SPRING_PROFILES_ACTIVE=docker
-
 # Run the application
 ENTRYPOINT ["java", "-jar", "app.jar"]
