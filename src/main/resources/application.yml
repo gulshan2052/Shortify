@@ -18,4 +18,4 @@ spring:
 rate-limit:
   capacity: 5
   refill-rate: 5
-  refill-duration-seconds: 1
+  refill-duration-seconds: 10
