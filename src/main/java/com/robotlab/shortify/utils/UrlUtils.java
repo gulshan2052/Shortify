@@ -1,12 +1,11 @@
 package com.robotlab.shortify.utils;
 
+import io.seruco.encoding.base62.Base62;
+
 import java.net.URI;
 import java.security.SecureRandom;
 
 public class UrlUtils {
-
-    private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    private static final SecureRandom RANDOM = new SecureRandom();
 
     public static Boolean isUrlValid(String url) {
         try {
@@ -29,13 +28,10 @@ public class UrlUtils {
         return true;
     }
 
-    public static String generateRandomAlias(int length) {
-        StringBuilder sb = new StringBuilder(length);
-        for (int i = 0; i < length; i++) {
-            int randomIndex = RANDOM.nextInt(CHARACTERS.length());
-            sb.append(CHARACTERS.charAt(randomIndex));
-        }
-        return sb.toString();
+    public static String encodeBase62(String s) {
+        Base62 base62 = Base62.createInstance();
+        final byte[] encoded = base62.encode(s.getBytes());
+        return new String(encoded);
     }
 
 }

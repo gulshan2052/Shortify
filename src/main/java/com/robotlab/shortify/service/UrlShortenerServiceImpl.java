@@ -1,12 +1,12 @@
-package com.robotlab.shortify.serviceImpl;
+package com.robotlab.shortify.service;
 
 import com.robotlab.shortify.dto.UrlDto;
 import com.robotlab.shortify.dto.UrlResponse;
 import com.robotlab.shortify.entity.UrlDetail;
 import com.robotlab.shortify.entity.User;
+import com.robotlab.shortify.repository.SequenceRepository;
 import com.robotlab.shortify.repository.UrlDetailRepository;
-import com.robotlab.shortify.service.LengthConfigService;
-import com.robotlab.shortify.service.UrlShortenerService;
+import com.robotlab.shortify.utils.UrlUtils;
 import com.robotlab.shortify.utils.UserContextUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +22,7 @@ import static com.robotlab.shortify.utils.UrlUtils.*;
 public class UrlShortenerServiceImpl implements UrlShortenerService {
 
     private final UrlDetailRepository urlDetailRepository;
-    private final LengthConfigService lengthConfigService;
+    private final SequenceRepository sequenceRepository;
 
     @Override
     public UrlResponse shorten(UrlDto urlDto, HttpServletRequest request) throws RuntimeException {
@@ -30,6 +30,9 @@ public class UrlShortenerServiceImpl implements UrlShortenerService {
         String baseUrl = getBaseUrl(request);
         User user = UserContextUtil.getCurrentUser();
         OffsetDateTime now = OffsetDateTime.now();
+        if (urlDto.getTtlMinutes() == null || urlDto.getTtlMinutes() <= 0) {
+            urlDto.setTtlMinutes(60);
+        }
 
         if(!isUrlValid(urlDto.getLongUrl())) {
             return UrlResponse.builder()
@@ -77,35 +80,23 @@ public class UrlShortenerServiceImpl implements UrlShortenerService {
     }
 
     public UrlResponse createShortUrl(UrlDto urlDto, OffsetDateTime now, User user, String baseUrl) {
-        int trials = 5;
-        int doIncrement = 3;
-        String alias;
-        for(int i = 0; i < trials; i++){
-            if(i == doIncrement){
-                lengthConfigService.incrementAliasLength();
-            }
-            alias = generateRandomAlias(lengthConfigService.getLength());
-            Optional<UrlDetail> urlDetailOptional = urlDetailRepository.findById(alias);
-            if(urlDetailOptional.isEmpty()) {
-                UrlDetail urlDetail = UrlDetail.builder()
-                        .id(alias)
-                        .longUrl(urlDto.getLongUrl())
-                        .expirationDate(now.plusMinutes(urlDto.getTtlMinutes()))
-                        .user(user)
-                        .build();
-                urlDetailRepository.save(urlDetail);
+        Long counter = sequenceRepository.nextCounterValue();
+        String alias = "_" + UrlUtils.encodeBase62(counter.toString());
+        UrlDetail urlDetail = UrlDetail.builder()
+            .id(alias)
+            .longUrl(urlDto.getLongUrl())
+            .expirationDate(now.plusMinutes(urlDto.getTtlMinutes()))
+            .user(user)
+            .build();
+        urlDetailRepository.save(urlDetail);
 
-                return UrlResponse.builder()
-                        .status(1)
-                        .longUrl(urlDto.getLongUrl())
-                        .shortUrl(baseUrl + "/" + alias)
-                        .alias(alias)
-                        .message("Link has been shortened")
-                        .build();
-            }
-        }
-
-        throw new RuntimeException("Something went wrong");
+        return UrlResponse.builder()
+                .status(1)
+                .longUrl(urlDto.getLongUrl())
+                .shortUrl(baseUrl + "/" + alias)
+                .alias(alias)
+                .message("Link has been shortened")
+                .build();
     }
 
     private String getBaseUrl(HttpServletRequest request) {

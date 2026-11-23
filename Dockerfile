@@ -1,14 +1,16 @@
-# Use official OpenJDK 21 image
-FROM eclipse-temurin:21-jre
-
-# Set working directory
+FROM maven:3.9-eclipse-temurin-21-alpine AS build
 WORKDIR /app
 
-# Copy the JAR file into the container
-COPY target/Shortify.jar app.jar
+COPY pom.xml .
+RUN mvn dependency:go-offline -B
 
-# Expose the port your application runs on
+COPY src ./src
+RUN mvn package -DskipTests -B
+
+
+FROM eclipse-temurin:21-jre-alpine
+WORKDIR /app
+
+COPY --from=build /app/target/*.jar app.jar
 EXPOSE 8080
-
-# Run the application
 ENTRYPOINT ["java", "-jar", "app.jar"]

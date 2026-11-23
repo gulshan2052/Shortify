@@ -17,7 +17,7 @@ import java.time.OffsetDateTime;
 public class UrlDetail {
 
     @Id
-    @Column(name = "id")
+    @Column(name = "id", columnDefinition = "VARCHAR(50) COLLATE ascii_bin")
     private String id;
 
     @Column(name = "long_url", length = 4096)
@@ -26,7 +26,7 @@ public class UrlDetail {
     @Column(name = "expiration_date")
     private OffsetDateTime expirationDate;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
