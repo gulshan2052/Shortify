@@ -3,6 +3,7 @@ package com.robotlab.shortify.service;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,9 @@ import java.util.function.Function;
 
 @Service
 public class JwtService {
+
+    @Value("${jwt.secret}")
+    private String secret;
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -64,8 +68,7 @@ public class JwtService {
     }
 
     private Key getSignInKey() {
-        String secretKey = "3fdf58a51010e16e621430a01baf387b481cc87ab2392d8cf92c039300f794f1"; // TODO - load from properties file
-        byte[] keyBytes = Decoders.BASE64.decode(secretKey);
+        byte[] keyBytes = Decoders.BASE64.decode(secret);
         return Keys.hmacShaKeyFor(keyBytes);
     }
 }

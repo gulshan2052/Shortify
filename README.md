@@ -19,6 +19,10 @@ See [doc.md](DOC.md) for curl requests covering every endpoint.
 From the repository root:
 
 ```bash
+export JWT_SECRET=3fdf58a51010e16e621430a01baf387b481cc87ab2392d8cf92c039300f794f1
+```
+
+```bash
 docker compose up -d --build      # build the app image and start app + MariaDB + Redis
 docker compose logs -f shortify-service
 docker compose ps
