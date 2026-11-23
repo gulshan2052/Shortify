@@ -22,3 +22,6 @@ rate-limit:
   capacity: 5
   refill-rate: 5
   refill-duration-seconds: 10
+
+cache:
+  redirect-ttl-seconds: 7200

@@ -30,6 +30,9 @@ public class UrlShortenerServiceImpl implements UrlShortenerService {
         String baseUrl = getBaseUrl(request);
         User user = UserContextUtil.getCurrentUser();
         OffsetDateTime now = OffsetDateTime.now();
+        if (urlDto.getTtlMinutes() == null || urlDto.getTtlMinutes() <= 0) {
+            urlDto.setTtlMinutes(60);
+        }
 
         if(!isUrlValid(urlDto.getLongUrl())) {
             return UrlResponse.builder()

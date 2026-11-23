@@ -26,7 +26,7 @@ public class UrlDetail {
     @Column(name = "expiration_date")
     private OffsetDateTime expirationDate;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 

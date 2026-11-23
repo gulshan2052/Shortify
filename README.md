@@ -10,6 +10,7 @@ A URL shortener built with Spring Boot 3.4 / Java 21, backed by MariaDB and Redi
 - `POST /api/v1/cleanup` (JWT with `USER` or `ADMIN` authority) asynchronously deletes expired URL rows from the database.
 - Every request is rate-limited with a Redis-backed token bucket, keyed by username for authenticated callers and by client IP otherwise. Defaults: 5 requests, refilling 5 tokens every 10 seconds; responses include `X-RateLimit-*` headers and `429` when exhausted.
 - JPA creates/updates tables at startup and `schema.sql` creates the ID sequence. The JWT secret, database, and Redis settings are development defaults in the source.
+- Redis is capped at 256 MB with volatile-lru; under memory pressure, old cache entries are dropped and simply re-fetched on the next read.
 
 See [doc.md](DOC.md) for curl requests covering every endpoint.
 
