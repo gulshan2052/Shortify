@@ -44,7 +44,7 @@ Auto-generated alias:
 curl -i -X POST "$BASE/api/v1/shorten" \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
-  -d '{"longUrl":"https://example.com/some/long/path","ttlMinutes":1440}'
+  -d '{"longUrl":"https://spring.io/projects/spring-boot","ttlMinutes":1440}'
 ```
 
 Custom alias (alphanumeric only, must be unused):
@@ -53,7 +53,7 @@ Custom alias (alphanumeric only, must be unused):
 curl -i -X POST "$BASE/api/v1/shorten" \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
-  -d '{"longUrl":"https://example.com/docs","ttlMinutes":60,"alias":"docs"}'
+  -d '{"longUrl":"https://spring.io/guides","ttlMinutes":60,"alias":"docs"}'
 ```
 
 Success returns `200` with `status: 1`, `shortUrl`, `alias`, `longUrl`, and `message`. Business errors also return HTTP `200` with a different `status`: `2` invalid URL, `3` alias already taken, `4` alias contains invalid characters.
@@ -66,7 +66,7 @@ Using the custom alias from above:
 curl -i "$BASE/docs"
 ```
 
-Returns `307 Temporary Redirect` with `Location: https://example.com/docs`. To follow it:
+Returns `307 Temporary Redirect` with `Location: https://spring.io/guides`. To follow it:
 
 ```bash
 curl -L "$BASE/docs"
