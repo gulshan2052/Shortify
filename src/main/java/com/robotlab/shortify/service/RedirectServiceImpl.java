@@ -1,8 +1,7 @@
-package com.robotlab.shortify.serviceImpl;
+package com.robotlab.shortify.service;
 
 import com.robotlab.shortify.entity.UrlDetail;
 import com.robotlab.shortify.repository.UrlDetailRepository;
-import com.robotlab.shortify.service.RedirectService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;

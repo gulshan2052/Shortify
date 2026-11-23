@@ -1,4 +1,4 @@
-package com.robotlab.shortify.serviceImpl;
+package com.robotlab.shortify.service;
 
 import com.robotlab.shortify.constants.Role;
 import com.robotlab.shortify.dto.AuthenticationRequest;
@@ -6,8 +6,6 @@ import com.robotlab.shortify.dto.AuthenticationResponse;
 import com.robotlab.shortify.dto.RegistrationRequest;
 import com.robotlab.shortify.entity.User;
 import com.robotlab.shortify.repository.UserRepository;
-import com.robotlab.shortify.service.AuthenticationService;
-import com.robotlab.shortify.service.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

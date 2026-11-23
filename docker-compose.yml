@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   shortify-service:
     build: .
@@ -12,8 +10,10 @@ services:
       SPRING_DATA_REDIS_HOST: shortify-redis
       SPRING_DATA_REDIS_PORT: 6379
     depends_on:
-      - shortify-db
-      - shortify-redis
+      shortify-db:
+        condition: service_healthy
+      shortify-redis:
+        condition: service_started
     restart: unless-stopped
 
   shortify-db:
@@ -27,10 +27,16 @@ services:
       - db_data:/var/lib/mysql
     ports:
       - "3306:3306"
+    healthcheck:
+      test: [ "CMD", "healthcheck.sh", "--connect", "--innodb_initialized" ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
     restart: unless-stopped
 
   shortify-redis:
-    image: redis:7
+    image: redis:7-alpine
     ports:
       - "6379:6379"
     volumes:
